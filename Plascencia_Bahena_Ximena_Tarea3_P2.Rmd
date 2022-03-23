@@ -1,0 +1,65 @@
+---
+title: "Red Booleana"
+author: "Plascencia Bahena Ximena"
+date: "19/3/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Ejercicio 2. Red Booleana**
+
+Generar una red de regulación transcripcional con 5 nodos y, al menos, 7 interacciones regulatorias, escoge al menos 3 inhibiciones.
+
+*Red de regulación transcripcional*
+
+![ ](https://lh3.googleusercontent.com/EihLILZUlCkKuYxmgzCWenXmEuamZ_aTjF5xCz61ivk8xL9hmDsMW9DLhYSBrTzmiEssxDW9F6hugTA4EJdF7L18wm2jdiwv53PnfSoSF1Xdj_DJ76Tb5FLe_bHDpgO6QpCNYjLXltC-6Ymi7ZBArwxBox_3hwyASBsRXqCj2zcBRRYIxVGWmH6ffJZy_x9bucBttZEErYFoFfhB3Ha3uuIE_Dz3hcuBJab2qyHuhSczSeYdmMTD5duU0QI1SOT6WLxJ8Ud6HfwJ-K8fHkGEBpJWCwkr36mueZE4gETIGStzZvw7lI5hYCxviaybxp2tNMsjHvreEHVXKdcnIMt1pMndOfTisb2yEPa9UL7Uzi15yE1eZDYXXU9Zp28jnG1mjb8ift-wRdZRTBUatO6K4g-YWmRJeP99vg9dWLQgEu81D9RDwqdQyLbLwpAvg2Tc91DEnqSiG2pw9kyypk3ZTfcD9M4ONyH5QHEXksK8HDSj6gd5QVArpxHSHoVrAceFFYfSfUrkoxxMd-Ava4IcjhgZFnX6KyBDYJgmLPyOKWndCrGXMv9Wlxttrb7-l-D9QbKUgYrxgTlC3gy6El3P00fRtwcvya9tChLPv2C-vPd7-g0JOQ04uy9-E0xl7X9YZ0dp2r7RvUS6zk5djJ9IZAnBnAYzxoynxLABMZq8poRaFacCXpWMC4zTZTthE2MTEZYyw_FPf-VHbi1SDaitiFhxHWp9jUnS3uxORw08reWLoHHanOeyuBnxp7AZwh4=w468-h308-no?authuser=0)
+
+*Reglas de regulación transcripcional y tablas de verdad*
+
+![ ](https://lh3.googleusercontent.com/5wEGNETZXMWXL_ky67DHSltjQZ0ePYxftgHMguPPDaPUOEAabfCTq98Jrg6tK39FIVFme63W8xfD_ujfwyh-PCgEYTUJclDnnSwhN9tRjGrNRV0hTAtV0AuYW7I-hVShez63lCDi0DprZO8vPUU7y85XahWAZ60WFplmXkUmDRLKpz5cIaSMFhPzUOq5J2w22H9lkfJ-WjXSDlHavmfBmy-GN65gGgQB9rTG481Ha8fov54tiI89mqiv30yp-3ZpwtWi62tO8ikPinqvAa2DjJkLKTscAnDSwXDshqVs8kfIwwaN7fivrbdTRF_rhnM7Rp6JbtvM92a2AhJkQ8P1PYH94p-5UTkIHc1hGAGHDExENBj04qqrB6N2oGItKs8FyL9W11w2xd5TMoiQHlFAGz97SHR3u-xQx7MM0VslxUpdXm_MX06droA6cTR1Qr7OsItHk1IJq2w_u5lBirRRZhUDXdXhlEyDebQ9khQajQRh_dcb1t8KV7_hFqpglKRy3xNfkbPy43RdeXtnlmWbr7gJUfUP8AmEtZYxPJU7G56hKIZAg5Q7_RXqRBwsnbeb-mqRFfnGgbrQLvO2GBWSBaapQwTXxdszCSufVv_RtLP1qN1jKGz6pr3wsTtHZ40oG-Titz2b-vcYAG_9Ak1bQP4J7aVQIMgSBBPsW_mkwugDlbW055jEH2Qirb-AqDhFkOtzqwb6YOIGu1IPk_0sCrsL0PN3aaMCE2sZ9usCZgYcfuFPNzB40S29HOT5mBw=w893-h495-no?authuser=0)
+
+```{r}
+library(BoolNet)
+red <- loadNetwork("Mi red.txt")
+red
+```
+
+Imprimir la red
+```{r, echo=FALSE}
+plotNetworkWiring(red)
+```
+
+*c) Encontrar los atractores.*
+
+Encontramos 2 atractores. El atractor 1, cuenta con 54 estados y el atractor 2 con 10.
+
+```{r}
+atractores <- getAttractors(red)
+atractores
+```
+
+*d) ¿Cuál sería el estado final más probable?*
+
+**010111**
+
+Donde B esta activo, ya que B es el que este activa a E y a F, dobde F se encarga de la activación de D, y mientras A y C estén apagados, los otros puntos se mantendrán encendidos.
+
+*e) Dibuja todos los estados y sus atractores.*
+
+**Estados:**
+```{r, echo=FALSE}
+plotAttractors(atractores)
+
+```
+
+**Atractores:**
+
+Gráficamos los caminos que siguen los atractores
+
+```{r, echo=FALSE}
+plotStateGraph(atractores)
+
+```

@@ -1,0 +1,71 @@
+---
+title: "Red de señalización"
+author: "Plascencia Bahena Ximena"
+date: "22/3/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Con la figura 1, responder:
+
+**a) Elabora una representación verbal de la red.**
+
+1. Calcio activa a KEV, Anion EM, NOS, PLC, Depolar y CaATPasa
+
+2. Al activar a CaATPasa, se autoregula ya que esta inhibe al calcio.
+
+3. Al activar a NOS y PLC, indice a más producción de calcio, ya que estas moléculas se encargan de producir a CIS, el cuál induce al calcio.
+
+4. Al inducir a KEV, AnionEM y Depolar, induce a Depolar. 
+
+5. Depolar inhibe a CalM que al estar inhibido, inhibe también al calcio. 
+
+6. KEV y AnionEM induce a Depolar
+
+7. Depolar activa a KAP y KOUT 
+
+8. KOUT inhibe a Depolar (autorregulación), pero también a closure.
+
+9. KAP, produce Closure.
+
+**b) Elabora las posibles reglas de la red.**
+
+![ ](https://lh3.googleusercontent.com/XwAUvF_aCejRHdMzlcwZnlTKpJUqrNYFLpfHJeEN-wfuoS6BxLlFDhNsW3ohD79WksxBNI-XbFaRTTm-vdq-XyOKdj0qmHiDPoTnwB_B2gYiz1f6VV9aCRKwDUWvQrgE3Tli9Gdb232h3Fn0Gr-xNYW_H7bqKFOjnhGc8Dm7Z4BVdRUyTFr3EyL4vqXuEd086Vc2o0uszy3I2QUl9LaefJBNc7HG3WGx8nvltPY5Vo3b13YFURd3Jh6fCqv7EvKK0_bVQucr8RoWG-X_w1XSW3ovP2VUFxZKfUQC9oYvtBwuNqikG9k3Tr9HVTyfygR9i6DbIYRmd7Yg6FV2By7Fl8QRedvZyiPfc-9HQcCg9RcB-lKFuciEeWpd72oZvo4b8nL1iNUf_JtsKa43Ses9AvcXI5vILsBe9vJK4rMGloyy3kd4pwFMZ6hcGruttYQ-QeAeXBboQPL_hCGvcKYp5GwXbR5iY_cs6CD90zaotGAy_UkVLt8YJFDSxDBoWSbNfN3uUAPpA20go-yEXJZRKH77y1sOp2N0z3ThVQzDXnIw6d_eR0Xk6PdVgkwEqThP-ZjKdBOm1gkCH5o24J8XeCgG8xpN6ZajU5AJIaYJ4B3m0ZHUNv-IYPYyxmghhraNm69vi0xE6iqI1s5wvoevPh2k0s4ze65YstVsMmE2CXcas3zjExD2L1zJTZxN-BnIZiM44sCU_NIfHGdneb-5LlyEC5fUWvBRX8XycfeK0ZEmzmqOvge33TYgxWOwOo0=w594-h600-no?authuser=0)
+
+**c) Encontrar los atractores y discutir biológicamente.**
+
+```{r }
+library(BoolNet)
+reds <- loadNetwork("Red señalizacion.txt")
+reds
+
+atractores <- getAttractors(reds)
+atractores
+
+plotAttractors(atractores)
+```
+
+Solo use operadores & para hacer mi red. Pienso que esto afecto la red, ya que solo hay un atractor. Pero puede haber muchas combinaciones de las cuales puede depender la cantidad de estadosy atractores. Biológicamente, esto implica que la red solo tiene un camino, lo cual es malo, ya que si se llega a afectar una molécula, puede afectar la red completa.
+
+
+```{r }
+library(BoolNet)
+reds2 <- loadNetwork("Red señalizacion 2.txt")
+reds2
+
+atractores <- getAttractors(reds2)
+atractores
+
+plotAttractors(atractores)
+```
+
+
+Realice otro intento modificando las reglas en Depolar, ya que al parecer en la red, este puede estar presente siempre y cuando haya calcio en el medio. Es decir:
+
+**Depolar, KEV |! HATPase & Ca |!KOUT & AnionEM**
+
+Aún así, me sigue apareciendo un solo estado... pienso que tiene que ver con la autorregulación del calcio y depolar.
+
